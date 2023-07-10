@@ -26,7 +26,8 @@ int main(){
         cout << "==  2. Sua Tour du lich                                             ==" << endl;
         cout << "==  3. Xoa Tour du lich                                             ==" << endl;
         cout << "==  4. Xem danh sach Tour du lich                                   ==" << endl;
-        cout << "==  4.                                                              ==" << endl;
+        cout << "==  5. Tim kiem Tour - Ma                                           ==" << endl;
+        cout << "==  6. Tim kiem Tour - Ten                                          ==" << endl;
         cout << "======================================================================" << endl;
         cout << "Nhap tuy chon: ";
         cin >> key;
@@ -76,6 +77,24 @@ int main(){
             inDsTour(Q);
             break;    
         
+        case 5:
+            cout << "5. Tim kiem Tour - Ma." << endl;
+            cout << "Nhap ma Tour: ";
+            cin >> maTour;
+
+            p = TimNodeTour_ma(Q, maTour);
+            
+            if(p != NULL){
+
+                cout << "Ma Tour: " <<  p -> info.maTour <<  endl;
+                cout << "Ten Tour: " <<  p -> info.tenTour << endl;
+                cout << "Gia Tour: " <<  p -> info.giaTour << endl;
+                cout <<  "So luong hanh khach: " << p -> info.soLuongHanhKhach << endl;
+            }else{
+                cout << "Khong tim thay Tour" << endl;
+            }
+            break;
+
         default:
             cout << "Khong co chuc nang nay trong menu." << endl;
             cout << "Vui long chon chuc nang trong hop menu" << endl;

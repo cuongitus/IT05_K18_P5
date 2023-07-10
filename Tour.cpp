@@ -197,14 +197,6 @@ void suaNodeTour_ma(ListTour &Q, char maTour[], char tenTourMoi[], int giaTourMo
 
     p = TimNodeTour_ma(Q,maTour);
 
-    // while (p != NULL){
-    //     if(strcasecmp(p -> info.maTour, maTour) == 0){
-    //     strcpy(p->info.tenTour, tenTourMoi);
-    //     p -> info.giaTour = giaTourMoi;
-    //     p -> info.soLuongHanhKhach = soLuongMoi;
-    //         break;
-    //     }
-    // }
     if( p != NULL){
         strcpy(p->info.tenTour, tenTourMoi);
         p -> info.giaTour = giaTourMoi;
@@ -213,6 +205,7 @@ void suaNodeTour_ma(ListTour &Q, char maTour[], char tenTourMoi[], int giaTourMo
         std::cout << "Khong co tour ban chon:" <<  std::endl;
     }   
 }
+
 
 void nhapDSTour(ListTour &Q){
 
