@@ -95,37 +95,37 @@ int main() {
     strcpy(ds[0].tenhh, "Trai Oi");
     ds[0].soluong = 10;
     ds[0].dongia = 5000;
-    ds[0].thanhtien = ds[0].soluong * ds[0].dongia
+    ds[0].thanhtien = ds[0].soluong * ds[0].dongia;
 
     ds[1].mahh = 2;
     strcpy(ds[1].tenhh, "Trai Man");
     ds[1].soluong = 9;
     ds[1].dongia = 10000;
-    ds[1].thanhtien = ds[1].soluong * ds[1].dongia
+    ds[1].thanhtien = ds[1].soluong * ds[1].dongia;
 
     ds[2].mahh = 3;
     strcpy(ds[2].tenhh, "Trai Le");
     ds[2].soluong = 6;
     ds[2].dongia = 11000;
-    ds[2].thanhtien = ds[2].soluong * ds[2].dongia
+    ds[2].thanhtien = ds[2].soluong * ds[2].dongia;
 
     ds[3].mahh = 4;
     strcpy(ds[3].tenhh, "Trai Dua");
     ds[3].soluong = 7;
     ds[3].dongia = 8000;
-    ds[3].thanhtien = ds[3].soluong * ds[3].dongia
+    ds[3].thanhtien = ds[3].soluong * ds[3].dongia;
 
     ds[4].mahh = 5;
     strcpy(ds[4].tenhh, "Trai Nho");
     ds[4].soluong = 22;
     ds[4].dongia = 88000;
-    ds[4].thanhtien = ds[4].soluong * ds[4].dongia
+    ds[4].thanhtien = ds[4].soluong * ds[4].dongia;
 
     ds[5].mahh = 6;
     strcpy(ds[5].tenhh, "Trai Dua Luoi");
     ds[5].soluong = 11;
     ds[5].dongia = 18000;
-    ds[5].thanhtien = ds[5].soluong * ds[5].dongia
+    ds[5].thanhtien = ds[5].soluong * ds[5].dongia;
 
     ds[6].mahh = 7;
     strcpy(ds[6].tenhh, "Trai Dua Luoi");
