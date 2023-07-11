@@ -124,6 +124,91 @@ NodePhieuDT *timPhieuDTMaNV(ListPhieuDT Q, int k)
     return p;
 }
 
+NodePhieuDT *timPhieuDTMaTour(ListPhieuDT Q, char k[])
+{
+    NodePhieuDT *p;
+    for (p = Q.Head; p != NULL; p = p->next)
+    {
+        if (strcmp(p->info.maTour, k) == 0)
+            break;
+    }
+    return p;
+}
+
+int demSoNV(ListPhieuDT Q)
+{
+    int count = 0;
+    NodePhieuDT *p;
+    if ((Q.Head == NULL) && (Q.Tail == NULL))
+        return count;
+
+    for (p = Q.Head; p != NULL; p = p->next)
+    {
+        count = count + 1;
+    }
+    return count;
+}
+
+void suaTienDatCocPhieuDTTheoMa(ListPhieuDT &Q, int maPhieu,int tienDatCoc)
+{
+
+    NodePhieuDT *p;
+
+    p = timPhieuDTMa(Q, maPhieu);
+
+    if (p != NULL)
+    {
+        p->info.tienDatCoc = tienDatCoc;
+        printf("\n Sua thong tin thanh cong.");
+    }
+    else
+    {
+        printf("\n Khong co Phieu Dat Tour tuong ung de sua.");
+    }
+}
+
+int xoaPhieuDTTheoMa(ListPhieuDT &Q, int k)
+{
+
+    NodePhieuDT *p = Q.Head, *q = NULL;
+
+    while (p != NULL)
+    {
+        if (p->info.maNV == k)
+        {
+            break;
+        }
+
+        q = p;
+        p = p->next;
+    }
+
+    if (p == NULL)
+    {
+        return 0;
+    }
+
+    if (q != NULL)
+    {
+        if (p == Q.Tail)
+        {
+            Q.Tail = q;
+            q->next = p->next;
+            free(p);
+        }
+    }
+    else
+    {
+        Q.Head = p->next;
+        if (Q.Head == NULL)
+        {
+            Q.Tail = NULL;
+        }
+    }
+
+    return 1;
+}
+
 void nhapPhieuDT(ListPhieuDT Q, PhieuDT &pdt, ListNV QNV, ListTour QT)
 {
     NodePhieuDT *px = Q.Head;
@@ -448,7 +533,8 @@ int main()
             cout << "\n 5. Nhap danh sach Nhan Vien tu File" << endl;
             char input[25];
             printf("Nhap ten file de doc DS NV: ");
-            fflush(stdin); gets(input);
+            fflush(stdin);
+            gets(input);
             docFileNV(f, QNV, input);
             break;
 
@@ -461,7 +547,8 @@ int main()
             cout << "\n 7. Luu danh sach Nhan Vien vao File" << endl;
             char output[25];
             printf("Nhap ten file de luu DS NV: ");
-            fflush(stdin); gets(output);
+            fflush(stdin);
+            gets(output);
             luuFileNV(f, QNV, output);
             break;
 
@@ -489,7 +576,8 @@ int main()
             char stenNV[25];
             NodeNV *pstnv;
             printf("\n ------- Nhap ho va ten NV muon tim: ");
-            fflush(stdin); gets(stenNV);
+            fflush(stdin);
+            gets(stenNV);
             pstnv = timNVTen(QNV, stenNV);
             if (pstnv == NULL)
             {

@@ -30,9 +30,11 @@ void nhapNV(NV &nv)
     printf("\n  Nhap Ma Nhan Vien: ");
     scanf("%d", &nv.maNV);
     printf("\n  Nhap Ho va Ten: ");
-    fflush(stdin); gets(nv.hoTen);
+    fflush(stdin);
+    gets(nv.hoTen);
     printf("\n  Nhap So dien thoai: ");
-    fflush(stdin); gets(nv.dienThoai);
+    fflush(stdin);
+    gets(nv.dienThoai);
 }
 
 void inNV(NV nv)
@@ -77,39 +79,6 @@ void chenDauNV(ListNV &Q, NodeNV *p)
     }
 }
 
-int xoaNVTheoMa(ListNV &Q, int k){
-    
-    NodeNV *p = Q.Head, *q = NULL; 
-
-    while (p != NULL){
-        if(p -> info.maNV == k){
-            break;
-        }
-
-        q = p;
-        p = p->next;
-    }
-
-    if(p == NULL){
-        return 0;
-    }
-    
-    if(q != NULL){
-        if(p == Q.Tail){
-            Q.Tail = q;
-            q ->next = p ->next;
-            free(p);
-        }
-    }else{
-        Q.Head = p-> next;
-        if(Q.Head == NULL){
-            Q.Tail = NULL;
-        }
-    }
-
-    return 1;
-}
-
 NodeNV *timNVMa(ListNV Q, int k)
 {
     NodeNV *p;
@@ -136,8 +105,9 @@ int demSoNV(ListNV Q)
 {
     int count = 0;
     NodeNV *p;
-    if ((Q.Head == NULL) && (Q.Tail == NULL)) return count;
-    
+    if ((Q.Head == NULL) && (Q.Tail == NULL))
+        return count;
+
     for (p = Q.Head; p != NULL; p = p->next)
     {
         count = count + 1;
@@ -145,21 +115,65 @@ int demSoNV(ListNV Q)
     return count;
 }
 
-void suaNVTheoMa(ListNV &Q, NV nv){
+void suaNVTheoMa(ListNV &Q, NV nv)
+{
 
-    NodeNV *p; 
+    NodeNV *p;
 
     p = timNVMa(Q, nv.maNV);
 
-    if(p != NULL){
+    if (p != NULL)
+    {
         strcpy(p->info.hoTen, nv.hoTen);
         strcpy(p->info.dienThoai, nv.dienThoai);
-        printf("\n Sua thong tin Nhan Vien thanh cong.");
+        printf("\n Sua thong tin thanh cong.");
     }
     else
     {
-        printf("\n Khong co Nhan vien tuong ung de sua.");
-    }   
+        printf("\n Khong co Nhan Vien tuong ung de sua.");
+    }
+}
+
+int xoaNVTheoMa(ListNV &Q, int k)
+{
+
+    NodeNV *p = Q.Head, *q = NULL;
+
+    while (p != NULL)
+    {
+        if (p->info.maNV == k)
+        {
+            break;
+        }
+
+        q = p;
+        p = p->next;
+    }
+
+    if (p == NULL)
+    {
+        return 0;
+    }
+
+    if (q != NULL)
+    {
+        if (p == Q.Tail)
+        {
+            Q.Tail = q;
+            q->next = p->next;
+            free(p);
+        }
+    }
+    else
+    {
+        Q.Head = p->next;
+        if (Q.Head == NULL)
+        {
+            Q.Tail = NULL;
+        }
+    }
+
+    return 1;
 }
 
 void nhapDSNV(ListNV &Q)
