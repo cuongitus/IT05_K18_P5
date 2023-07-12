@@ -53,10 +53,10 @@ void nhapTour(Tour &tour){
     fflush(stdin); gets(tour.tenTour);  
 
     cout << "So luong hanh khach :";
-    scanf("%d", &tour.giaTour);  
+    scanf("%d", &tour.soLuongHanhKhach);
 
     cout << "Gia Tour :";
-    scanf("%d", &tour.soLuongHanhKhach);  
+    scanf("%d", &tour.giaTour);  
 
 }
 
