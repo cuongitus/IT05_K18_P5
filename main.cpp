@@ -135,7 +135,7 @@ NodePhieuDT *timPhieuDTMaTour(ListPhieuDT Q, char k[])
     return p;
 }
 
-int demSoNV(ListPhieuDT Q)
+int demSoPhieuDT(ListPhieuDT Q)
 {
     int count = 0;
     NodePhieuDT *p;
@@ -354,7 +354,7 @@ void nhapDSPhieuDT(ListPhieuDT &Q, ListNV QNV, ListTour QT)
     }
 }
 
-void inDSPHieuDT(ListPhieuDT Q, ListNV QNV, ListTour QT)
+void inDSPhieuDT(ListPhieuDT Q, ListNV QNV, ListTour QT)
 {
     printf("\n ---------- Danh sach Phieu Tour da dat -----------");
     NodePhieuDT *p;
@@ -368,15 +368,12 @@ void inDSPHieuDT(ListPhieuDT Q, ListNV QNV, ListTour QT)
     printf("\n ----------------- Het --------------------");
 }
 
-void luuFileNV(FILE *f, ListPhieuDT Q, char *nameF)
+void luuFilePhieuDT(FILE *f, ListPhieuDT Q, char *nameF)
 {
     f = fopen(nameF, "wb");
     int n = 0;
     NodePhieuDT *p;
-    for (p = Q.Head; p != NULL; p = p->next)
-    {
-        n = n + 1;
-    }
+    n = demSoPhieuDT(Q);
 
     fwrite(&n, sizeof(int), 1, f);
 
@@ -387,7 +384,7 @@ void luuFileNV(FILE *f, ListPhieuDT Q, char *nameF)
     fclose(f);
 }
 
-void docFileNV(FILE *f, ListPhieuDT &Q, char *nameF)
+void docFilePhieuDT(FILE *f, ListPhieuDT &Q, char *nameF)
 {
     PhieuDT pdt;
     int i, n;
@@ -411,32 +408,12 @@ void docFileNV(FILE *f, ListPhieuDT &Q, char *nameF)
 }
 //===================
 
-int main()
+void chucNangNhanVien(FILE *f, ListNV &QNV)
 {
-    FILE *f;
-
-    // Khai bao danh sach
-    ListNV QNV;
-    initDSNV(QNV);
-    ListTour QT;
-    init(QT);
-    ListPhieuDT QPDT;
-    initDSPhieuDT(QPDT);
-
-    int key;
-    int kq;
-
-    NodeTour *pT;
-    char maTour[4];
-    char tenTourMoi[20];
-    int giaTourMoi;
-    int soLuongHanhKhachMoi;
-    char *tenFile = "danhSachTour.bin"; 
-
     int chon;
     do
     {
-        cout << "\n CHUONG TRINH QUAN LY TOUR DU LICH" << endl;
+        cout << "\n CHUC NANG QUAN LY NHAN VIEN" << endl;
         cout << "=================================MENU=================================" << endl;
         cout << "==  1. Them 1 Nhan Vien                                             ==" << endl;
         cout << "==  2. Sua Nhan Vien theo ma NV                                     ==" << endl;
@@ -447,50 +424,7 @@ int main()
         cout << "==  7. Luu danh sach Nhan Vien vao File                             ==" << endl;
         cout << "==  8. Tim kiem Nhan Vien - Ma                                      ==" << endl;
         cout << "==  9. Tim kiem Nhan Vien - Ten                                     ==" << endl;
-        cout << "==  10. Them Tour du lich                                            ==" << endl;
-        cout << "==  11. Sua Tour du lich                                             ==" << endl;
-        cout << "==  12. Xoa Tour du lich                                             ==" << endl;
-        cout << "==  13. Xem danh sach Tour du lich                                   ==" << endl;
-        cout << "==  14. Tim kiem Tour - Ma                                           ==" << endl;
-        cout << "==  15. Tim kiem Tour - Ten                                          ==" << endl;
-        cout << "==  16. Sap xep Tour - Gia tour tang dang                            ==" << endl;
-        cout << "==  17. Sap xep Tour - Gia tour giam dang                            ==" << endl;
-        cout << "==  18. Sap xep Tour - So luong hanh khach tang dang                 ==" << endl;
-        cout << "==  19. Sap xep Tour - So luong hanh khach giam dang                ==" << endl;
-        cout << "==  20. Tour có gia cao nhat                                        ==" << endl;
-        cout << "==  21. Tour có gia thap nhat                                       ==" << endl;
-        cout << "==  22. Tour có so luong khach cao nhat                             ==" << endl;
-        cout << "==  23. Tour có so luong khach thap nhat                            ==" << endl;
-        cout << "==  24. Tong so luong Tour hien co                                  ==" << endl;
-        cout << "==  25. Luu Ds tour ra file csv                                     ==" << endl;
-        // cout << "==  10. Tong so luong Nhan Vien hien co                             ==" << endl;
-        // cout << "==  10. Them Phieu Dat Tour                                         ==" << endl;
-        // cout << "==  11. Sua Phieu Dat Tour du lich                                  ==" << endl;
-        // cout << "==  12. Xoa Phieu Dat Tour du lich                                  ==" << endl;
-        // cout << "==  13. Nhap danh sach Phieu Dat Tour du lich                       ==" << endl;
-        // cout << "==  14. Nhap danh sach Phieu Dat Tour du lich tu File               ==" << endl;
-        // cout << "==  15. Xem danh sach Phieu Dat Tour du lich                        ==" << endl;
-        // cout << "==  16. Tim kiem Phieu Dat Tour - Ma                                ==" << endl;
-        // cout << "==  17. Tim kiem Phieu Dat Tour - Ma NV                             ==" << endl;
-        // cout << "==  18. Tim kiem Phieu Dat Tour - Ma Tour                           ==" << endl;
-        // cout << "==  19. Sap xep Phieu Dat Tour - Tong tien tang dang                ==" << endl;
-        // cout << "==  20. Sap xep Phieu Dat Tour - Tong tien giam dang                ==" << endl;
-        // cout << "==  21. Sap xep Phieu Dat Tour - So luong hanh khach tang dang      ==" << endl;
-        // cout << "==  22. Sap xep Phieu Dat Tour - So luong hanh khach giam dang      ==" << endl;
-        // cout << "==  23. Phieu Dat Tour có gia cao nhat                              ==" << endl;
-        // cout << "==  24. Phieu Dat Tour có gia thap nhat                             ==" << endl;
-        // cout << "==  25. Tong so luong Phieu Dat Tour hien co                        ==" << endl;
-        // cout << "==  26. In danh sach Phieu Dat Tour theo ma NV                      ==" << endl;
-        // cout << "==  27. In danh sach Phieu Dat Tour theo ten NV                     ==" << endl;
-        // cout << "==  28. In danh sach Phieu Dat Tour theo ma Tour                    ==" << endl;
-        // cout << "==  39. In danh sach Phieu Dat Tour theo ten Tour                   ==" << endl;
-        // cout << "==  30. In danh sach Phieu Dat Tour co tong tien lon hon x          ==" << endl;
-        // cout << "==  31. In danh sach Phieu Dat Tour co tong tien lon hon | bang x   ==" << endl;
-        // cout << "==  32. In danh sach Phieu Dat Tour co tong tien bang x             ==" << endl;
-        // cout << "==  33. In danh sach Phieu Dat Tour co tong tien nho hon x          ==" << endl;
-        // cout << "==  34. In danh sach Phieu Dat Tour co tong tien nho hon | bang x   ==" << endl;
-        // cout << "==  35. In danh sach Phieu Dat Tour da tra du tien                  ==" << endl;
-        // cout << "==  36. In danh sach Phieu Dat Tour chua tra du tien                ==" << endl;
+        cout << "==  10. Tong so luong Nhan Vien hien co                             ==" << endl;
         cout << "==  0. Thoat                                                        ==" << endl;
         cout << "======================================================================" << endl;
         cout << "Nhap tuy chon: ";
@@ -620,14 +554,67 @@ int main()
             cout << "\n 10. Tong so luong Nhan Vien hien co" << endl;
             printf("\n Tong so luong Nhan Vien hien co la: %d", demSoNV(QNV));
             break;
-        
-        case 11:
-            cout << "11. Them tour du lich." << endl;
+
+        case 0:
+            chon = 0;
+            break;
+
+        default:
+            cout << "Khong co chuc nang nay trong menu." << endl;
+            cout << "Vui long chon chuc nang trong hop menu" << endl;
+            break;
+        }
+
+    } while (chon != 0);
+}
+
+void chucNangTour(FILE *f, ListTour &QT)
+{
+    int key;
+    int kq;
+
+    NodeTour *pT;
+    char maTour[4];
+    char tenTourMoi[20];
+    int giaTourMoi;
+    int soLuongHanhKhachMoi;
+    char *tenFile = "danhSachTour.bin"; 
+
+    int chon;
+    do
+    {
+        cout << "\n CHUC NANG QUAN LY TOUR" << endl;
+        cout << "=================================MENU=================================" << endl;
+        cout << "==  1. Them Tour du lich                                            ==" << endl;
+        cout << "==  2. Sua Tour du lich                                             ==" << endl;
+        cout << "==  3. Xoa Tour du lich                                             ==" << endl;
+        cout << "==  4. Xem danh sach Tour du lich                                   ==" << endl;
+        cout << "==  5. Tim kiem Tour - Ma                                           ==" << endl;
+        // cout << "==  6. Tim kiem Tour - Ten                                          ==" << endl;
+        cout << "==  6. Sap xep Tour - Gia tour tang dan                             ==" << endl;
+        cout << "==  7. Sap xep Tour - Gia tour giam dan                             ==" << endl;
+        cout << "==  8. Sap xep Tour - So luong hanh khach tang dan                  ==" << endl;
+        cout << "==  9. Sap xep Tour - So luong hanh khach giam dan                  ==" << endl;
+        cout << "==  10. Tour có gia cao nhat                                        ==" << endl;
+        cout << "==  11. Tour có gia thap nhat                                       ==" << endl;
+        cout << "==  12. Tour có so luong khach cao nhat                             ==" << endl;
+        cout << "==  13. Tour có so luong khach thap nhat                            ==" << endl;
+        cout << "==  14. Tong so luong Tour hien co                                  ==" << endl;
+        cout << "==  15. Luu Ds tour ra file csv                                     ==" << endl;
+        cout << "==  16. Doc Ds tour ra file csv                                     ==" << endl;
+        cout << "==  0. Thoat                                                        ==" << endl;
+        cout << "======================================================================" << endl;
+        cout << "Nhap tuy chon: ";
+        cin >> chon;
+        switch (chon)
+        {
+        case 1:
+            cout << "1. Them tour du lich." << endl;
             nhapDSTour(QT);
             break;
 
-        case 12:
-            cout << "1. Sua tour du lich." << endl;
+        case 2:
+            cout << "2. Sua tour du lich." << endl;
             cout << "Nhap ma Tour: ";
             cin >> maTour;
 
@@ -644,8 +631,8 @@ int main()
 
             break;
         
-        case 13:
-            cout << "13. Xoa tour du lich" << endl;
+        case 3:
+            cout << "3. Xoa tour du lich" << endl;
             cout << "Nhap ma Tour: ";
             cin >> maTour;
 
@@ -658,13 +645,13 @@ int main()
             }
             break;
 
-        case 14:
-            cout << "14. Xem danh sach tour du lịch." << endl;
+        case 4:
+            cout << "4. Xem danh sach tour du lịch." << endl;
             inDsTour(QT);
             break;    
         
-        case 15:
-            cout << "15. Tim kiem Tour - Ma." << endl;
+        case 5:
+            cout << "5. Tim kiem Tour - Ma." << endl;
             cout << "Nhap ma Tour: ";
             cin >> maTour;
 
@@ -681,8 +668,8 @@ int main()
             }
             break;
 
-        case 17:
-            cout << "17. Sap xep Tour - Gia tour tang dang." << endl;
+        case 6:
+            cout << "6. Sap xep Tour - Gia tour tang dan." << endl;
 
             kq = sapXepTourGiaTang(QT);
 
@@ -693,8 +680,8 @@ int main()
             }
             break;
         
-        case 18:
-            cout << "18. Sap xep Tour - Gia tour giam dang." << endl;
+        case 7:
+            cout << "7. Sap xep Tour - Gia tour giam dan." << endl;
 
             kq = sapXepTourGiaGiam(QT);
 
@@ -705,8 +692,8 @@ int main()
             }
             break;
 
-        case 19:
-            cout << "19. Sap xep Tour - So luong tang dang." << endl;
+        case 8:
+            cout << "8. Sap xep Tour - So luong khach tang dan." << endl;
 
             kq = sapXepTourSoluongTang(QT);
 
@@ -717,8 +704,8 @@ int main()
             }
             break;
         
-        case 20:
-            cout << "20. Sap xep Tour - So luong giam dang." << endl;
+        case 9:
+            cout << "9. Sap xep Tour - So luong khach giam dan." << endl;
 
             kq = sapXepTourSoluongGiam(QT);
 
@@ -729,40 +716,122 @@ int main()
             }
             break;
         
-        case 21:
-            cout << "21. Danh sach Tour co gia cao nhat" << endl;
+        case 10:
+            cout << "10. Danh sach Tour co gia cao nhat" << endl;
             tour_soluong_max(QT);
             break;
 
-        case 22:
-            cout << "22. Danh sach Tour co gia thap nhat" << endl;
+        case 11:
+            cout << "11. Danh sach Tour co gia thap nhat" << endl;
             tour_soluong_max(QT);
             break;
             
-        case 23:
-            cout << "23. Danh sach Tour co so luong khach cao nhat" << endl;
+        case 12:
+            cout << "12. Danh sach Tour co so luong khach cao nhat" << endl;
             tour_soluong_max(QT);
             break;
 
-        case 24:
-            cout << "24. Danh sach Tour co so luong khach thap nhat" << endl;
+        case 13:
+            cout << "13. Danh sach Tour co so luong khach thap nhat" << endl;
             tour_soluong_max(QT);
             break;
 
-        case 25:
-            cout << "25. Tong so luong Tour hien co: " << demTour(QT) << endl;
+        case 14:
+            cout << "14. Tong so luong Tour hien co: " << demTour(QT) << endl;
             break;
 
-        case 26:
-            cout << "26. Luu Ds tour ra file csv" << endl;
+        case 15:
+            cout << "15. Luu Ds tour ra file csv" << endl;
             luuFileTour(f, QT, tenFile);
             break; 
 
-        case 27:
-            cout << "27. Doc Ds tour ra file csv" << endl;
+        case 16:
+            cout << "16. Doc Ds tour ra file csv" << endl;
             docFileTour(f, QT, tenFile);
             break;
 
+
+        case 0:
+            chon = 0;
+            break;
+
+        default:
+            cout << "Khong co chuc nang nay trong menu." << endl;
+            cout << "Vui long chon chuc nang trong hop menu" << endl;
+            break;
+        }
+
+    } while (chon != 0);
+}
+
+int main()
+{
+    FILE *f;
+
+    // Khai bao danh sach
+    ListNV QNV;
+    initDSNV(QNV);
+    ListTour QT;
+    init(QT);
+    ListPhieuDT QPDT;
+    initDSPhieuDT(QPDT);
+
+    int chon;
+    do
+    {
+        cout << "\n CHUONG TRINH QUAN LY TOUR DU LICH" << endl;
+        cout << "=================================MENU=================================" << endl;
+        cout << "==  1. Chuc nang quan ly Nhan Vien                                  ==" << endl;
+        cout << "==  2. Chuc nang quan ly Tour                                       ==" << endl;
+        cout << "==  3. Chuc nang quan ly Phieu Dat Tour                             ==" << endl;
+        // cout << "==  10. Tong so luong Nhan Vien hien co                             ==" << endl;
+        // cout << "==  10. Them Phieu Dat Tour                                         ==" << endl;
+        // cout << "==  11. Sua Phieu Dat Tour du lich                                  ==" << endl;
+        // cout << "==  12. Xoa Phieu Dat Tour du lich                                  ==" << endl;
+        // cout << "==  13. Nhap danh sach Phieu Dat Tour du lich                       ==" << endl;
+        // cout << "==  14. Nhap danh sach Phieu Dat Tour du lich tu File               ==" << endl;
+        // cout << "==  15. Xem danh sach Phieu Dat Tour du lich                        ==" << endl;
+        // cout << "==  16. Tim kiem Phieu Dat Tour - Ma                                ==" << endl;
+        // cout << "==  17. Tim kiem Phieu Dat Tour - Ma NV                             ==" << endl;
+        // cout << "==  18. Tim kiem Phieu Dat Tour - Ma Tour                           ==" << endl;
+        // cout << "==  19. Sap xep Phieu Dat Tour - Tong tien tang dang                ==" << endl;
+        // cout << "==  20. Sap xep Phieu Dat Tour - Tong tien giam dang                ==" << endl;
+        // cout << "==  21. Sap xep Phieu Dat Tour - So luong hanh khach tang dang      ==" << endl;
+        // cout << "==  22. Sap xep Phieu Dat Tour - So luong hanh khach giam dang      ==" << endl;
+        // cout << "==  23. Phieu Dat Tour có gia cao nhat                              ==" << endl;
+        // cout << "==  24. Phieu Dat Tour có gia thap nhat                             ==" << endl;
+        // cout << "==  25. Tong so luong Phieu Dat Tour hien co                        ==" << endl;
+        // cout << "==  26. In danh sach Phieu Dat Tour theo ma NV                      ==" << endl;
+        // cout << "==  27. In danh sach Phieu Dat Tour theo ten NV                     ==" << endl;
+        // cout << "==  28. In danh sach Phieu Dat Tour theo ma Tour                    ==" << endl;
+        // cout << "==  39. In danh sach Phieu Dat Tour theo ten Tour                   ==" << endl;
+        // cout << "==  30. In danh sach Phieu Dat Tour co tong tien lon hon x          ==" << endl;
+        // cout << "==  31. In danh sach Phieu Dat Tour co tong tien lon hon | bang x   ==" << endl;
+        // cout << "==  32. In danh sach Phieu Dat Tour co tong tien bang x             ==" << endl;
+        // cout << "==  33. In danh sach Phieu Dat Tour co tong tien nho hon x          ==" << endl;
+        // cout << "==  34. In danh sach Phieu Dat Tour co tong tien nho hon | bang x   ==" << endl;
+        // cout << "==  35. In danh sach Phieu Dat Tour da tra du tien                  ==" << endl;
+        // cout << "==  36. In danh sach Phieu Dat Tour chua tra du tien                ==" << endl;
+        cout << "==  0. Thoat chuong trinh                                           ==" << endl;
+        cout << "======================================================================" << endl;
+        cout << "Nhap tuy chon: ";
+        cin >> chon;
+        switch (chon)
+        {
+        case 1:
+            cout << "\n 1. Chuc nang quan ly Nhan Vien" << endl;
+            chucNangNhanVien(f, QNV);
+            break;
+
+        case 2:
+            cout << "\n 2. Chuc nang quan ly Tour" << endl;
+            chucNangTour(f, QT);
+            break;
+
+        case 3:
+            cout << "\n 3. Chuc nang quan ly Phieu Dat Tour" << endl;
+            
+            break;
 
         case 0:
             exit(0);
